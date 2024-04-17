@@ -15,7 +15,9 @@
     "husky": " husky install",
     "prepare": "husky",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --check **/*.js",
+    "prettier:fix": "prettier --write **/*.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
