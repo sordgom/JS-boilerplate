@@ -10,7 +10,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest -i --colors --verbose --detectOpenHandles",
     "docker": "docker-compose -f docker-compose.yml up",
     "husky": " husky install",
     "prepare": "husky"
@@ -52,7 +52,7 @@
     "eslint-plugin-security": "^1.4.0",
     "faker": "^5.1.0",
     "husky": "^7.0.0",
-    "jest": "^26.0.1",
+    "jest": "^27.0.1",
     "lint-staged": "^11.0.0",
     "node-mocks-http": "^1.8.0",
     "nodemon": "^2.0.0",
