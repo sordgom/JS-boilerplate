@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 const { User } = require('../models');
-const { Error } = require('../utils/error');
+const { ApiError } = require('../utils/error');
 
 /**
  * Create a user
@@ -34,7 +34,7 @@ const queryUsers = async (filter, options) => {
  * @returns {Promise<User>}
  */
 const getUserById = async (id) => {
-return User.findById(id);
+    return User.findById(id);
 };
 
 /**

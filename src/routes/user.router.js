@@ -1,9 +1,12 @@
 const express = require('express');
+const userController = require('../controller/user.controller');
 
-const userRouter = express.Router();
+const router = express.Router();
 
-userRouter.get('/', () => {
-    console.log(`It's working!`)
-});
+router
+    .route('/:userId')
+    .get(userController.getUser)
+    .patch(userController.updateUser)
+    .delete(userController.deleteUser);
 
-module.exports = userRouter;
+module.exports = router;
