@@ -1,12 +1,9 @@
 // TODO: Implement email service
-const sendResetPasswordEmail = (email ,token) => {
+const sendResetPasswordEmail = () => {};
 
-};
-
-const sendVerificationEmail = (email, token) => {
-
-};
+const sendVerificationEmail = () => {};
 
 module.exports = {
-    sendResetPasswordEmail, sendVerificationEmail
+  sendResetPasswordEmail,
+  sendVerificationEmail,
 };
