@@ -4,14 +4,14 @@ const { authService, userService } = require("../services");
 
 const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
-  const token = await tokenService.generateToken(user);
+  const token = await tokenService.generateAuthToken(user);
   res.status(httpStatus.CREATED).send({ user, token });
 });
 
 const login = catchAsync(async (req, res) => {
   const { email, password } = req.body;
   const user = await authService.emailLogin(email, password);
-  const token = await tokenService.generateToken(user);
+  const token = await tokenService.generateAuthToken(user);
   res.send({ user, token });
 });
 
