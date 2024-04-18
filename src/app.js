@@ -1,8 +1,8 @@
 const express = require("express");
 const xss = require("xss-clean");
 const mongoSanitize = require("express-mongo-sanitize");
-const routes = require("./routes");
 
+const routes = require("./routes");
 const morgan = require("./config/morgan");
 const config = require("./config/config");
 
