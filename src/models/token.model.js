@@ -11,16 +11,16 @@ const tokenSchema = mongoose.Schema(
     user: {
       type: mongoose.SchemaType.ObjectId,
       required: true,
-      ref: 'User',
+      ref: "User",
     },
     type: {
       type: String,
-      enum: [tokenTypes.ACCESS, ACCESS.REFRESH],
+      enum: [tokenTypes.ACCESS, tokenTypes.REFRESH, tokenTypes.VERTIFY_EMAIL, tokenTypes.RESET_PASSWORD],
       required: true,
     },
     expires: {
-        type: Date,
-        required: true,
+      type: Date,
+      required: true,
     },
   },
   {
@@ -31,6 +31,6 @@ const tokenSchema = mongoose.Schema(
 /**
  * @typedef Token
  */
-const Token = mongoose.model('Token', tokenSchema);
+const Token = mongoose.model("Token", tokenSchema);
 
 module.exports = Token;
