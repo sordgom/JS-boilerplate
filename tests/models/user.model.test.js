@@ -3,7 +3,7 @@ const { User } = require("../../src/models");
 
 describe("user model", () => {
   // Create a new user
-  let user = {
+  const user = {
     name: faker.name.findName(),
     email: faker.internet.email().toLowerCase(),
     password: "password1",
