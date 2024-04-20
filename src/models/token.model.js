@@ -9,13 +9,13 @@ const tokenSchema = mongoose.Schema(
       trim: true,
     },
     user: {
-      type: mongoose.SchemaType.ObjectId,
-      required: true,
+      type: mongoose.SchemaTypes.ObjectId,
       ref: "User",
+      required: true,
     },
     type: {
       type: String,
-      enum: [tokenTypes.ACCESS, tokenTypes.REFRESH, tokenTypes.VERTIFY_EMAIL, tokenTypes.RESET_PASSWORD],
+      enum: [tokenTypes.ACCESS, tokenTypes.REFRESH, tokenTypes.VERIFY_EMAIL, tokenTypes.RESET_PASSWORD],
       required: true,
     },
     expires: {
