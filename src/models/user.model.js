@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const { roles } = require("../config/roles");
-
+const { toJSON, paginate } = require("./plugins");
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -48,6 +48,10 @@ const userSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+
+// add plugin that converts mongoose to json
+userSchema.plugin(toJSON);
+userSchema.plugin(paginate);
 
 /**
  * Check if email is taken
