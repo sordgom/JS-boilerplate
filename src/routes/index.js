@@ -11,15 +11,15 @@ const healthCheck = async (req, res) => {
 
 const defaultRouters = [
   {
-    path: '/users',
+    path: "/users",
     router: userRouter,
-  }, 
+  },
   {
-    path: '/auth',
+    path: "/auth",
     router: authRouter,
   },
   {
-    path: '/hc',
+    path: "/hc",
     router: healthCheck,
   },
 ];
@@ -31,7 +31,11 @@ defaultRouters.forEach((route) => {
   router.use(route.path, route.router);
 });
 
-if (config.env === 'development') {
+systemRouters.forEach((route) => {
+  router.use(route.path, route.router);
+});
+
+if (config.env === "development") {
   devRouters.forEach((route) => {
     router.use(route.path, route.route);
   });

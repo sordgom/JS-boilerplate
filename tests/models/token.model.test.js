@@ -27,7 +27,7 @@ describe("Test my token model", () => {
     await expect(new Token(token).validate()).resolves.toBeUndefined();
   });
   // This test keeps failing, need to discover why
-  test.skip('Token should fail if the type is wrong', async () => {
+  test.skip("Token should fail if the type is wrong", async () => {
     token.type = "wrong";
     await expect(new Token(token).validate()).rejects.toThrow();
   });

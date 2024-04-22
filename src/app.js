@@ -1,11 +1,12 @@
 const express = require("express");
 const xss = require("xss-clean");
 const mongoSanitize = require("express-mongo-sanitize");
-const helmet = require('helmet');
-const passport = require('passport');
+const helmet = require("helmet");
+const passport = require("passport");
+const httpStatus = require("http-status");
 
-const jwtStrategy = require('./config/passport');
-const { errorConverter, errorHandler } = require('./middleware/error');
+const { jwtStrategy } = require("./config/passport");
+const { errorConverter, errorHandler } = require("./middleware/error");
 const routes = require("./routes");
 const morgan = require("./config/morgan");
 const config = require("./config/config");
@@ -33,14 +34,14 @@ app.use(express.urlencoded({ extended: true }));
 
 // jwt authentication
 app.use(passport.initialize());
-passport.use('jwt', jwtStrategy);
+passport.use("jwt", jwtStrategy);
 
 // Version 1 of the API
 app.use("/v1", routes);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
-  next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
+  next(new ApiError(httpStatus.NOT_FOUND, "Not found"));
 });
 
 // convert error to ApiError, if needed; and handle errors
