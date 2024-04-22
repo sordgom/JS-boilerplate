@@ -5,10 +5,10 @@ const config = require("../../src/config/config");
 const { testUserA, admin } = require("./user.fixture");
 
 const expires = moment().add(config.jwt.accessExpirationMinutes, "minutes");
+
 const accessToken = tokenService.generateToken(testUserA._id, expires, tokenTypes.ACCESS);
 
-const adminExpires = moment().add(config.jwt.accessExpirationMinutes, "minutes");
-const adminAccessToken = tokenService.generateToken(admin._id, adminExpires, tokenTypes.ACCESS);
+const adminAccessToken = tokenService.generateToken(admin._id, expires, tokenTypes.ACCESS);
 
 module.exports = {
   accessToken,
