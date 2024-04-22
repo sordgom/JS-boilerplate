@@ -33,7 +33,7 @@ const generateToken = (userId, expires, type, secret = config.jwt.secret) => {
  * @param {Moment} expires
  * @returns {Promise<Token>}
  */
-const storeToken = async (token, userId, tokenType, expires) => {
+const storeToken = async (token, userId, expires, tokenType) => {
   const newToken = await Token.create({
     token,
     user: userId,

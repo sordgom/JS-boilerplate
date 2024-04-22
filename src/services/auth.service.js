@@ -1,5 +1,5 @@
 const httpStatus = require("http-status");
-const { ApiError } = require("../utils/error");
+const ApiError  = require("../utils/error");
 const userService = require("./user.service");
 const tokenService = require("./token.service");
 const { Token, tokenTypes } = require("../models");
@@ -24,7 +24,7 @@ const emailLogin = async (email, password) => {
  * @returns {Promise}
  */
 const logout = async (refreshToken) => {
-  const tokenDoc = await tokenService.verifyToken({ token: refreshToken, tokenType: tokenTypes.REFRESH });
+  const tokenDoc = await Token.findOne({ token: refreshToken, type: tokenTypes.REFRESH });
   if (!tokenDoc) {
     throw new ApiError(httpStatus.NOT_FOUND, "User not found");
   }

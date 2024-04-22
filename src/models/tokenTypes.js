@@ -5,6 +5,4 @@ const tokenTypes = {
   VERIFY_EMAIL: "verifyEmail",
 };
 
-module.exports = {
-  tokenTypes,
-};
+module.exports = tokenTypes;
