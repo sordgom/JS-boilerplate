@@ -6,6 +6,7 @@ const { insertUsers, admin} = require("../fixtures/user.fixture");
 const { adminAccessToken } = require("../fixtures/token.fixture");
 const app = require('../../src/app');
 const setupDB = require('../setupDb');
+const User = require('../../src/models/user.model');
 setupDB();
 
 describe('Testing the user endpoints', () => {
@@ -24,37 +25,33 @@ describe('Testing the user endpoints', () => {
         test("Should be successful if everything's correct", async () => {
             await insertUsers([admin]);
 
-            const response = request(app)
+            const res = await request(app)
                 .post('/v1/users')
+                .set('Authorization', `Bearer ${adminAccessToken}`)
                 .send(user)
                 .expect(httpStatus.CREATED);
-
-            expect(response.body).toEqual({
+        
+            expect(res.body).not.toHaveProperty('password');
+            expect(res.body).toEqual({
                 id: expect.anything(),
                 name: user.name,
                 email: user.email,
                 role: user.role,
                 isEmailVerified: false,
             });
-            expect(response.body).not.toHaveProperty('password');
 
-            const dbUser = await User.findById(response.body.id);
+            const dbUser = await User.findById(res.body.id);
             expect(dbUser).toBeDefined();
             expect(dbUser.password).not.toBe(user.password);
-            expect(dbUser).toMatchObject({
-                name: user.name,
-                email: user.email,
-                role: user.role,
-                isEmailVerified: false,
-            });
+            expect(dbUser).toMatchObject({ name: user.name, email: user.email, role: user.role, isEmailVerified: false });
         }); 
 
-        test.skip("Should be able to create new admins", async () => {
+        test("Should be able to create new admins", async () => {
             await insertUsers([admin]);
 
             user.role = "admin";
 
-            const response = request(app)
+            const response = await request(app)
                 .post('/v1/users')
                 .set('Authorization', `Bearer ${adminAccessToken}`)
                 .send(user)
@@ -66,10 +63,10 @@ describe('Testing the user endpoints', () => {
             expect(dbUser.role).toBe("admin");
         });
 
-        test.skip("Should return 401 if email is already taken", async () => {
+        test("Should return 409 if email is already taken", async () => {
             await insertUsers([admin, user]);
 
-            const response = request(app)
+            const response = await request(app)
                 .post('/v1/users')
                 .set('Authorization', `Bearer ${adminAccessToken}`)
                 .send(user)
@@ -81,12 +78,12 @@ describe('Testing the user endpoints', () => {
             });
         });
 
-        test.skip("Should return 401 if password is weak", async () => {
+        test("Should return 400 if password is weak", async () => {
             await insertUsers([admin]);
 
             user.password = "password";
 
-            const response = request(app)
+            const response = await request(app)
                 .post('/v1/users')
                 .set('Authorization', `Bearer ${adminAccessToken}`)
                 .send(user)
@@ -98,12 +95,12 @@ describe('Testing the user endpoints', () => {
             });
         });
 
-        test.skip("Should return 401 if password is less than 8 characters", async () => {
+        test("Should return 400 if password is less than 8 characters", async () => {
             await insertUsers([admin]);
 
             user.password = "pass1";
 
-            const response = request(app)
+            const response = await request(app)
                 .post('/v1/users')
                 .set('Authorization', `Bearer ${adminAccessToken}`)
                 .send(user)

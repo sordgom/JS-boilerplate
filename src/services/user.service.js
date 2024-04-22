@@ -9,7 +9,7 @@ const { ApiError } = require("../utils/error");
  */
 const createUser = async (userBody) => {
   if (await User.isEmailTaken(userBody.email)) {
-    throw new Error(httpStatus.CONFLICT, "Email already taken");
+    throw new ApiError(httpStatus.CONFLICT, "Email already taken");
   }
   return User.create(userBody);
 };

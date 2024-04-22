@@ -20,8 +20,8 @@ const logout = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-const refreshToken = catchAsync(async (req, res) => {
-  const token = await authService.refreshToken(req.body.refreshToken);
+const refreshTokens = catchAsync(async (req, res) => {
+  const token = await authService.refreshAuth(req.body.refreshToken);
   res.send({ ...token });
 });
 
@@ -51,7 +51,7 @@ module.exports = {
   login,
   register,
   logout,
-  refreshToken,
+  refreshTokens,
   forgotPassword,
   resetPassword,
   sendVerificationEmail,

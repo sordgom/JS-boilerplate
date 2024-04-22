@@ -4,6 +4,8 @@ const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require('helmet');
 const passport = require('passport');
 
+const jwtStrategy = require('./config/passport');
+const { errorConverter, errorHandler } = require('./middleware/error');
 const routes = require("./routes");
 const morgan = require("./config/morgan");
 const config = require("./config/config");
@@ -27,6 +29,14 @@ app.use(express.json());
 
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
+
+// jwt authentication
+app.use(passport.initialize());
+passport.use('jwt', jwtStrategy);
+
+// convert error to ApiError, if needed; and handle errors
+app.use(errorConverter);
+app.use(errorHandler);
 
 // Version 1 of the API
 app.use("/v1", routes);
