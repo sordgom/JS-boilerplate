@@ -7,6 +7,7 @@ const { adminAccessToken } = require("../fixtures/token.fixture");
 const app = require('../../src/app');
 const setupDB = require('../setupDb');
 const User = require('../../src/models/user.model');
+
 setupDB();
 
 describe('Testing the user endpoints', () => {

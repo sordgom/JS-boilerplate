@@ -9,6 +9,7 @@ const { errorConverter, errorHandler } = require('./middleware/error');
 const routes = require("./routes");
 const morgan = require("./config/morgan");
 const config = require("./config/config");
+const ApiError = require("./utils/error");
 
 const app = express();
 
@@ -34,11 +35,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 passport.use('jwt', jwtStrategy);
 
+// Version 1 of the API
+app.use("/v1", routes);
+
+// send back a 404 error for any unknown api request
+app.use((req, res, next) => {
+  next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
+});
+
 // convert error to ApiError, if needed; and handle errors
 app.use(errorConverter);
 app.use(errorHandler);
-
-// Version 1 of the API
-app.use("/v1", routes);
 
 module.exports = app;
