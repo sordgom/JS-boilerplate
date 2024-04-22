@@ -18,7 +18,7 @@ const { userService } = require(".");
 const generateToken = (userId, expires, type, secret = config.jwt.secret) => {
   const payload = {
     sub: userId,
-    iat: moment.unix(),
+    iat: moment().unix(),
     exp: expires.unix(),
     type,
   };

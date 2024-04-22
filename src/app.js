@@ -1,6 +1,8 @@
 const express = require("express");
 const xss = require("xss-clean");
 const mongoSanitize = require("express-mongo-sanitize");
+const helmet = require('helmet');
+const passport = require('passport');
 
 const routes = require("./routes");
 const morgan = require("./config/morgan");
@@ -17,6 +19,16 @@ if (config.env !== "test") {
 app.use(xss());
 app.use(mongoSanitize());
 
-app.use("/", routes);
+// set security HTTP headers
+app.use(helmet());
+
+// parse json request body
+app.use(express.json());
+
+// parse urlencoded request body
+app.use(express.urlencoded({ extended: true }));
+
+// Version 1 of the API
+app.use("/v1", routes);
 
 module.exports = app;
