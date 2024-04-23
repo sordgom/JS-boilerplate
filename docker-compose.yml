@@ -1,8 +1,22 @@
 version : '1'
 
 services: 
+  js-boilerplate:
+    build: .
+    image: js-boilerplate
+    environment: 
+      - MONGODB_URL=mongodb://mongodb:27017/
+    ports: 
+      - '3000:3000'
+    depends_on: 
+      - mongodb
+    volumes:
+      - .:/usr/src/js-boilerplate
+    networks:
+      - js-network
+
   mongodb: 
-    image: mongo:latest
+    image: mongo:4.2.1-bionic
     ports: 
       - '27017:27017'
     volumes: 

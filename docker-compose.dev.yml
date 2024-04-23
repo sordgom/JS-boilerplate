@@ -1,0 +1,6 @@
+version: '1'
+
+services:
+  js-boilerplate:
+    container_name: js-boilerplate-dev
+    command: npm run dev
