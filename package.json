@@ -13,8 +13,6 @@
     "dev": "cross-env NODE_ENV=development nodemon src/index.js",
     "test": "jest -i --colors --verbose --detectOpenHandles",
     "docker": "docker-compose -f docker-compose.yml up",
-    "husky": " husky install",
-    "prepare": "husky",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check **/*.js",
