@@ -202,31 +202,31 @@ describe("Testing the user endpoints", () => {
       expect(res.body.results[2].id).toBe(admin._id.toHexString());
     });
 
-    test('should return the correct page if page and limit params are specified', async () => {
-        await insertUsers([testUserA, testUserB, admin]);
-    
-        const res = await request(app)
-            .get('/v1/users')
-            .set('Authorization', `Bearer ${adminAccessToken}`)
-            .query({ page: 2, limit: 2 })
-            .send()
-            .expect(httpStatus.OK);
-    
-        expect(res.body).toEqual({
-            results: expect.any(Array),
-            page: 2,
-            limit: 2,
-            totalPages: expect.any(Number),
-            totalResults: 3,
-        });
-        expect(res.body.results).toHaveLength(1);
-        expect(res.body.results[0]).toEqual({
-            id: admin._id.toHexString(),
-            name: admin.name,
-            email: admin.email,
-            role: admin.role,
-            isEmailVerified: admin.isEmailVerified,
-        });
-        });
+    test("should return the correct page if page and limit params are specified", async () => {
+      await insertUsers([testUserA, testUserB, admin]);
+
+      const res = await request(app)
+        .get("/v1/users")
+        .set("Authorization", `Bearer ${adminAccessToken}`)
+        .query({ page: 2, limit: 2 })
+        .send()
+        .expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 2,
+        limit: 2,
+        totalPages: expect.any(Number),
+        totalResults: 3,
+      });
+      expect(res.body.results).toHaveLength(1);
+      expect(res.body.results[0]).toEqual({
+        id: admin._id.toHexString(),
+        name: admin.name,
+        email: admin.email,
+        role: admin.role,
+        isEmailVerified: admin.isEmailVerified,
+      });
+    });
   });
 });

@@ -1,6 +1,7 @@
 const express = require("express");
 const userRouter = require("./user.router");
 const authRouter = require("./auth.router");
+const docsRouter = require("./docs.router");
 const config = require("../config/config");
 
 const router = express.Router();
@@ -24,7 +25,12 @@ const defaultRouters = [
   },
 ];
 
-const devRouters = [];
+const devRouters = [
+  {
+    path: "/docs",
+    router: docsRouter,
+  },
+];
 const systemRouters = [];
 
 defaultRouters.forEach((route) => {
@@ -37,7 +43,7 @@ systemRouters.forEach((route) => {
 
 if (config.env === "development") {
   devRouters.forEach((route) => {
-    router.use(route.path, route.route);
+    router.use(route.path, route.router);
   });
 }
 

@@ -1,5 +1,5 @@
 const httpStatus = require("http-status");
-const ApiError  = require("../utils/error");
+const ApiError = require("../utils/error");
 const userService = require("./user.service");
 const tokenService = require("./token.service");
 const { Token, tokenTypes } = require("../models");
